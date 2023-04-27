@@ -19,6 +19,7 @@ EMAIL_ACCOUNT = config['config_params']['project_params']['email_account']
 INSTANCE_ZONE = config['config_params']['gce_params']['instance_zone']
 INSTANCE_MACHINE_TYPE = config['config_params']['gce_params']['machine_type']
 INSTANCE_NAME = config['config_params']['gce_params']['instance_name']
+GCS_BUCKET = config['config_params']['gcs_params']['gcs_bucket']
 GCS_SCRIPT_PATH = config['config_params']['gcs_params']['gcs_script_path']
 
 
@@ -68,12 +69,13 @@ instance_create_command = """
 # Command to copy and execute workflow.sh on GCE Instance
 workflow_execute_command = """
     gcloud compute --project {PROJECT_ID} ssh {INSTANCE_NAME} --internal-ip --zone {INSTANCE_ZONE} \
-    --command "mkdir etl_home && cd etl_home && gsutil cp {GCS_SCRIPT_PATH}/workflow.sh . && sh workflow.sh"
+    --command "mkdir etl_home && cd etl_home && gsutil cp {GCS_SCRIPT_PATH}/workflow.sh . && sh workflow.sh ${PROJECT_ID} ${GCS_BUCKET}"
 """.format(
-  INSTANCE_NAME = INSTANCE_NAME,
-  PROJECT_ID = PROJECT_ID,
-  INSTANCE_ZONE = INSTANCE_ZONE,
-  GCS_SCRIPT_PATH = GCS_SCRIPT_PATH
+    INSTANCE_NAME = INSTANCE_NAME,
+    PROJECT_ID = PROJECT_ID,
+    INSTANCE_ZONE = INSTANCE_ZONE,
+    GCS_SCRIPT_PATH = GCS_SCRIPT_PATH,
+    GCS_BUCKET = GCS_BUCKET
 )
 
 
