@@ -8,4 +8,5 @@ config_params:
         service_account: "196260021418-compute@developer.gserviceaccount.com"
         email_account: "kaushlendra@gmail.com"
     gcs_params:
+        gcs_bucket: "gs://kaushl-bq-gcs-etl"
         gcs_scripts_path: "gs://kaushl-bq-gcs-etl/scripts/"
