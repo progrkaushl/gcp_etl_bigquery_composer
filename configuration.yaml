@@ -1,0 +1,11 @@
+config_params:
+    gce_params:
+        instance_name: "demo-instance"
+        instance_zone: "us-central1-a"
+        machine_type: "e2-medium"
+    project_params:
+        project_id: "kaushl-bq-gcs-etl"
+        service_account: "196260021418-compute@developer.gserviceaccount.com"
+        email_account: "kaushlendra@gmail.com"
+    gcs_params:
+        gcs_scripts_path: "gs://kaushl-bq-gcs-etl/scripts/"
