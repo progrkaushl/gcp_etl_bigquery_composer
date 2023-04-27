@@ -118,7 +118,7 @@ FROM ${PROJECT_ID}.office_db.office_data_projects p
 WHERE p.department = 'Sales'
 "
 echo $export_sales_data_command
-bq query --nouse_legacy_sql 
+bq query --nouse_legacy_sql export_sales_data_command
 
 
 # STEP 4: Add header to the file
