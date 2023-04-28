@@ -100,10 +100,11 @@ FROM ${PROJECT_ID}.office_db.office_data_projects p
 WHERE p.department = 'Sales'
 "
 echo $export_sales_data_command
-bq query --nouse_legacy_sql export_sales_data_command
+bq query --nouse_legacy_sql $export_sales_data_command
 
 
 # STEP 4: Add header to the file
+mkdir -p ${LOCAL_OUTPUT_PATH}/office_data/
 rm -r ${LOCAL_OUTPUT_PATH}/office_data/
 
 echo "Copy and merge files from GCS to Local"
