@@ -27,8 +27,8 @@ mkdir -p ${PWD}/data/
 curl https://raw.githubusercontent.com/progrkaushl/datasets/master/csv/office_data/OfficeData.csv -o ${PWD}/data/OfficeData.csv
 curl https://raw.githubusercontent.com/progrkaushl/datasets/master/csv/office_data/OfficeDataProject.csv -o ${PWD}/data/OfficeDataProject.csv
 
-gcs cp ${PWD}/data/OfficeData.csv ${GCS_DATA_PATH}/office_data/OfficeData.csv
-gcs cp ${PWD}/data/OfficeDataProject.csv ${GCS_DATA_PATH}/office_data/OfficeDataProject.csv
+gsutil cp ${PWD}/data/OfficeData.csv ${GCS_DATA_PATH}/office_data/OfficeData.csv
+gsutil cp ${PWD}/data/OfficeDataProject.csv ${GCS_DATA_PATH}/office_data/OfficeDataProject.csv
 
 
 # STEP 1: Create TABLE
