@@ -15,7 +15,7 @@ LOCAL_OUTPUT_PATH=${PWD}/output
 mkdir -p ${LOCAL_OUTPUT_PATH}
 
 # Create log file
-LOG_PATH=${PWD}/logs/
+LOG_PATH=${PWD}/logs
 mkdir -p ${LOG_PATH}
 
 LOG_FILE=${LOG_PATH}/bq_etl_job_${FILE_NAME_SUFFIX}.log
@@ -105,7 +105,7 @@ bq query --nouse_legacy_sql $export_sales_data_command
 
 # STEP 4: Add header to the file
 mkdir -p ${LOCAL_OUTPUT_PATH}/office_data/
-rm -r ${LOCAL_OUTPUT_PATH}/office_data/
+rm  ${LOCAL_OUTPUT_PATH}/office_data/*
 
 echo "Copy and merge files from GCS to Local"
 gsutil cat ${GCS_STAGING_PATH}/office_data/* >> ${LOCAL_OUTPUT_PATH}/office_data/office_data_sales.txt
