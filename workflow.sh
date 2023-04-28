@@ -55,22 +55,6 @@ salary INT64,
 age INT64, 
 bonus INT64
 );
-
-CREATE TABLE IF NOT EXISTS ${PROJECT_ID}.office_db.office_data_projects_hive_partitioned (
-employee_id INT64, 
-employee_name STRING, 
-state STRING, 
-salary INT64, 
-age INT64, 
-bonus INT64
-)
-WITH PARTITION COLUMNS
-OPTIONS (
-format='CSV',
-field_delimiter='|',
-hive_partition_uri_prefix="${GCS_OUTPUT_PATH}/office_data/",
-uris=["${GCS_OUTPUT_PATH}/office_data/*"]
-);
 "
 echo $create_table_command
 bq query --nouse_legacy_sql $create_table_command
@@ -97,11 +81,9 @@ bq query --nouse_legacy_sql $load_data_command
 
 
 # STEP 3: Do join & export data in hive partitioning way
-office_data_export_uri="${GCS_STAGING_PATH}/office_data/*"
-
 export_sales_data_command="
 EXPORT DATA OPTIONS(
-  uri='${office_data_export_uri}',
+  uri='${GCS_STAGING_PATH}/office_data/*',
   format='CSV',
   overwrite=true,
   header=false,
@@ -131,5 +113,26 @@ gsutil cat ${GCS_STAGING_PATH}/office_data/* >> ${LOCAL_OUTPUT_PATH}/office_data
 # STEP 6: Copy file to Destination folder in GCS
 echo "Copy file into GCS for Hive Partitioned Table..."
 gsutil cp ${LOCAL_OUTPUT_PATH}/office_data/office_data_sales.txt ${GCS_OUTPUT_PATH}/office_data/date_dt=${RUN_DATE}/office_data_sales_${FILE_NAME_SUFFIX}.txt
+
+# STEP 7: Create final hive partitioned table
+create_final_table_command="
+CREATE EXTERNAL TABLE IF NOT EXISTS ${PROJECT_ID}.office_db.office_data_projects_hive_partitioned (
+employee_id INT64, 
+employee_name STRING, 
+state STRING, 
+salary INT64, 
+age INT64, 
+bonus INT64
+)
+WITH PARTITION COLUMNS
+OPTIONS (
+format='CSV',
+field_delimiter='|',
+hive_partition_uri_prefix='${GCS_OUTPUT_PATH}/office_data/',
+uris=['${GCS_OUTPUT_PATH}/office_data/*']
+);
+"
+echo $create_final_table_command
+bq query --nouse_legacy_sql $create_final_table_command
 
 
