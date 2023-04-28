@@ -11,7 +11,7 @@ GCS_ARCHIVE_PATH=${GCS_BUCKET}/archive
 GCS_OUTPUT_PATH=${GCS_BUCKET}/output
 GCS_STAGING_PATH=${GCS_BUCKET}/staging
 
-LOCAL_OUTPUT_PATH=${PWD}/output/
+LOCAL_OUTPUT_PATH=${PWD}/output
 mkdir -p ${LOCAL_OUTPUT_PATH}
 
 # Create log file
