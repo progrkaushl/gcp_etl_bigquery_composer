@@ -51,7 +51,7 @@ instance_create_command = """
     --provisioning-model=STANDARD \
     --service-account={SERVICE_ACCOUNT} \
     --scopes=https://www.googleapis.com/auth/cloud-platform \
-    --create-disk=auto-delete=yes,boot=yes,device-name=instance-2,image=projects/debian-cloud/global/images/debian-11-bullseye-v20230411,mode=rw,size=10,type=projects/{PROJECT_ID}/zones/{INSTANCE_ZONE}/diskTypes/pd-balanced \
+    --create-disk=auto-delete=yes,boot=yes,device-name=${INSTANCE_NAME},image=projects/debian-cloud/global/images/debian-11-bullseye-v20230411,mode=rw,size=10,type=projects/{PROJECT_ID}/zones/{INSTANCE_ZONE}/diskTypes/pd-balanced \
     --no-shielded-secure-boot \
     --shielded-vtpm \
     --shielded-integrity-monitoring \
